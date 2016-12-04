@@ -1,6 +1,8 @@
-# PWA compendium app to support the collection of the useful phones, articles and media
+# PWA compendium app
 
-[![Build Status](https://travis-ci.org/PolymerElements/polymer-starter-kit.svg?branch=master)](https://travis-ci.org/PolymerElements/polymer-starter-kit)
+[![Build Status](https://travis-ci.org/nuald/compendium.svg?branch=master)](https://travis-ci.org/nuald/compendium)
+
+PWA compendium app to support the collection of the useful phones, articles and media.
 
 ### Setup
 
