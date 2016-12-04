@@ -13,7 +13,7 @@ node_js:
   - '5'
   - '4'
 before_script:
-  - apt-get install default-jre
+  - sudo apt-get install default-jre
   - npm install -g bower polymer-cli
   - bower install
 script:
