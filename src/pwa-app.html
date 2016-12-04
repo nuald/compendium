@@ -10,7 +10,7 @@
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
-<link rel="import" href="pwa-icons.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
 
 <dom-module id="pwa-app">
   <template>
@@ -51,6 +51,7 @@
 
         font-weight: bold;
       }
+
     </style>
 
     <app-location route="{{route}}"></app-location>
@@ -78,7 +79,8 @@
         <app-header condenses reveals effects="waterfall">
           <app-toolbar>
             <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
-            <div main-title>Compendium</div>
+            <div class="my-title" main-title>Compendium</div>
+            <paper-icon-button icon="settings"></paper-icon-button>
           </app-toolbar>
         </app-header>
 
