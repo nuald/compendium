@@ -1,11 +1,12 @@
 {
   "entrypoint": "index.html",
-  "shell": "src/my-app.html",
+  "shell": "src/pwa-app.html",
   "fragments": [
-    "src/my-view1.html",
-    "src/my-view2.html",
-    "src/my-view3.html",
-    "src/my-view404.html"
+    "src/pwa-quick.html",
+    "src/pwa-articles.html",
+    "src/pwa-phones.html",
+    "src/pwa-media.html",
+    "src/pwa-view404.html"
   ],
   "sourceGlobs": [
    "src/**/*",
