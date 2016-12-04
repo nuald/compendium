@@ -8,12 +8,12 @@ addons:
       - google-chrome
     packages:
       - google-chrome-stable
-      - oracle-java8-installer
 node_js:
   - '6'
   - '5'
   - '4'
 before_script:
+  - apt-get install default-jre
   - npm install -g bower polymer-cli
   - bower install
 script:
