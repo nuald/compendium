@@ -4,32 +4,34 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
-    <title>pwa-quick</title>
+    <title>pwa-app</title>
 
     <script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
     <script src="../bower_components/web-component-tester/browser.js"></script>
 
     <!-- Import the element to test -->
-    <link rel="import" href="../src/pwa-quick.html">
+    <link rel="import" href="../src/pwa-app.html">
   </head>
   <body>
     <test-fixture id="basic">
       <template>
-        <pwa-quick></pwa-quick>
+        <pwa-app></pwa-app>
       </template>
     </test-fixture>
 
     <script>
-      suite('pwa-quick tests', function() {
+      suite('pwa-app tests', function() {
         var home;
 
         setup(function() {
           home = fixture('basic');
         });
 
-        test('Number in circle should be 1', function() {
-          var circle = Polymer.dom(home.root).querySelector('.circle');
-          assert.equal(circle.textContent, '1');
+        test('GPS locator is hidden for the headless browser', function() {
+          var settings = Polymer.dom(home.root).querySelector('#settings');
+          settings.click();
+          var gps = Polymer.dom(home.root).querySelector('#gps');
+          assert.equal(gps.hidden, !navigator.geolocation);
         });
       });
     </script>

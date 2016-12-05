@@ -11,6 +11,10 @@
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/iron-icons/device-icons.html">
+<link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
 
 <dom-module id="pwa-app">
   <template>
@@ -52,6 +56,13 @@
         font-weight: bold;
       }
 
+      .flex {
+        @apply(--layout-horizontal);
+      }
+
+      paper-icon-button[hidden] {
+        display: none;
+      }
     </style>
 
     <app-location route="{{route}}"></app-location>
@@ -79,8 +90,9 @@
         <app-header condenses reveals effects="waterfall">
           <app-toolbar>
             <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
-            <div class="my-title" main-title>Compendium</div>
-            <paper-icon-button icon="settings"></paper-icon-button>
+            <div main-title>Compendium</div>
+            <paper-icon-button icon="settings" on-click="_showSettings" id="settings">
+            </paper-icon-button>
           </app-toolbar>
         </app-header>
 
@@ -97,6 +109,19 @@
         </iron-pages>
       </app-header-layout>
     </app-drawer-layout>
+
+    <paper-dialog id="settings" modal on-iron-overlay-closed="_settingsClosed">
+      <div class="container flex">
+        <paper-input label="Location" id="location"></paper-input>
+        <paper-icon-button icon="device:gps-fixed"
+          on-click="_locate" id="gps" hidden$="[[!_hasGeo()]]">
+        </paper-icon-button>
+      </div>
+      <div class="buttons">
+        <paper-button dialog-dismiss>Cancel</paper-button>
+        <paper-button dialog-confirm autofocus>Accept</paper-button>
+      </div>
+    </paper-dialog>
   </template>
 
   <script>
@@ -127,7 +152,52 @@
 
       _showPage404: function() {
         this.page = 'view404';
+      },
+
+      _populateSettings: function() {
+      },
+
+      _hasGeo: function () {
+          return !!navigator.geolocation;
+      },
+
+      _showSettings: function() {
+        this._populateSettings();
+        this.$.settings.open();
+      },
+
+      _settingsClosed: function(e, closingReason) {
+        if (closingReason.confirmed) {
+        }
+      },
+
+      _locate: function() {
+        var that = this, geo = navigator.geolocation;
+        if (geo) {
+          geo.getCurrentPosition(function(pos) {
+            var geocoder = new google.maps.Geocoder(),
+                latlng = new google.maps.LatLng(
+                  pos.coords.latitude,
+                  pos.coords.longitude
+                );
+            geocoder.geocode({'latLng': latlng}, function(results, status) {
+              if (status == google.maps.GeocoderStatus.OK) {
+                var result = results[0], city = "", i = 0,
+                    len = result.address_components.length;
+                for (; i< len; i++) {
+                  var ac = result.address_components[i];
+                  if (ac.types.indexOf("locality") >= 0) {
+                    city = ac.long_name;
+                    break;
+                  }
+                }
+                that.$.location.value = city;
+              }
+            });
+          });
+        }
       }
+
     });
   </script>
 </dom-module>
