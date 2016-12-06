@@ -8,9 +8,13 @@ PWA compendium app to support the collection of the useful phones, articles and 
 
 ##### Prerequisites
 
-Install [polymer-cli](https://github.com/Polymer/polymer-cli):
+Install [polymer-cli](https://github.com/Polymer/polymer-cli) and [bower](https://bower.io/):
 
-    npm install -g polymer-cli
+    npm i -g polymer-cli bower
+
+Install the required Polymer elements using Bower:
+
+    bower i
 
 ### Start the development server
 
